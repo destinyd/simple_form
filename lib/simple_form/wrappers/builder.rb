@@ -90,6 +90,7 @@ module SimpleForm
           options[:tag] = :div if options[:tag].nil?
           yield builder
           @components << Many.new(name, builder.to_a, options)
+          @components
         else
           raise ArgumentError, "A block is required as argument to wrapper"
         end

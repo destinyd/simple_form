@@ -65,9 +65,9 @@ module SimpleForm
         # Notice that html_options_for receives a reference to input_html_classes.
         # This means that classes added dynamically to input_html_classes will
         # still propagate to input_html_options.
-        @html_classes = SimpleForm.additional_classes_for(:input) { additional_classes }
+        @input_html_classes = SimpleForm.additional_classes_for(:input) { additional_classes }
 
-        @input_html_classes = @html_classes.dup
+        @html_classes = @input_html_classes.dup - [SimpleForm.input_class]
         @input_html_options = html_options_for(:input, input_html_classes).tap do |o|
           o[:readonly]  = true if has_readonly?
           o[:disabled]  = true if has_disabled?

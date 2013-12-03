@@ -48,6 +48,13 @@ module SimpleForm
       end
 
       private
+      def html_options(options)
+        options[:"#{namespace}_html"] || {}
+      end
+
+      def html_classes(input, options)
+        @defaults[:class].dup
+      end
 
       def wrap(input, options, content)
         return content if options[namespace] == false
@@ -56,17 +63,10 @@ module SimpleForm
         return content unless tag
 
         klass = html_classes(input, options)
+        klass.delete SimpleForm.input_class
         opts  = html_options(options)
         opts[:class] = (klass << opts[:class]).join(' ').strip unless klass.empty?
         input.template.content_tag(tag, content, opts)
-      end
-
-      def html_options(options)
-        options[:"#{namespace}_html"] || {}
-      end
-
-      def html_classes(input, options)
-        @defaults[:class].dup
       end
     end
   end
